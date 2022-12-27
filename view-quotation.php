@@ -92,17 +92,22 @@ function test_input($text){
  $stmt->execute();
  $stmt->store_result();
  $stmt->bind_result($description, $code, $quantity);
+ $total = 0;
  if($stmt->num_rows > 0 ) {
   $sn = 0;
 while($stmt->fetch()){
   $sn++;
+  $total += $quantity;
 echo "<tr>
 <td>".$sn."</td>
 <td>".$description."</td>
 <td>".$code."</td>
 <td>".$quantity."</td>
 </tr>";
-  }}
+  }}else{
+    echo '<tr>
+<td colspan="4">No quote item found!</td>';
+  }
 
   ?>
 
@@ -137,13 +142,13 @@ echo "<tr>
 
     <tr class="quoteEnd">
       <th>Total</th>
-
-      <td></td>
+      <td><?php echo $total; ?></td>
     </tr>
   </table>
 <br/>
 
-<a href="download-quotation/<?php echo $ref_no; ?>">Download quotation</a><br>
+<a href="download-quotation/<?php echo $ref_no; ?>">Download quotation</a><br/>
+<br/>
 
 
   <script src="js/jquery-3.6.3.min.js"></script>

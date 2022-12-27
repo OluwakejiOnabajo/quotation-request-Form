@@ -145,7 +145,7 @@ function submitQuotations() {
           alert("Quotation submitted successfully"); 
           
           setTimeout(function () {
-            window.location = 'view-quotation/'+response.ref_no;
+            window.location = 'quotations/'+response.ref_no;
           }, 1000);
 
         } else {

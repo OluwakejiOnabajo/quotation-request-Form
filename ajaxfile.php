@@ -43,16 +43,6 @@ if ($request == 1) {
           $stmt->execute(); 
           echo json_encode( array("status" => 1, "message" => "Success", "ref_no" => $ref_no ) );
           }
-          
-          // $stmt = $conn->prepare("INSERT INTO quote_items (ref_no, description, code, quantity) VALUES (?, ?, ?, ?)");
-          // $stmt->bind_param("ssss", $ref_no, $description, $code, $quantity);
-          // if($stmt->execute()){          
-          //     echo json_encode( array("status" => 1, "message" => "Success", "ref_no" => $ref_no ) );
-          //     exit;
-          //     }else{
-          //       echo json_encode( array("status" => 0, "message" => "Invalid reference" ) );
-          //       exit;
-          //   }
         }else{
          echo json_encode( array("status" => 0, "message" => "Ooops! SOmething went wrong" ) );
          exit;
@@ -62,39 +52,6 @@ if ($request == 1) {
 }
 
 
-//Add Quote Item
-   if ($request == 2) {
 
-    $ref_no = test_input($_POST['ref_no']);
-    $description = test_input($_POST['description']);
-    $code = test_input($_POST['code']);
-    $quantity = test_input($_POST['quantity']); 
-
-    if($ref_no !== '' && $description !== '' && $code !== '' && $quantity !== ''){
-    
-
-           $stmt = $conn->prepare("SELECT ref_no FROM quote WHERE ref_no = ?");
-        $stmt->bind_param("s", $ref_no);
-        $stmt->execute();
-        $stmt->store_result();
-        if($stmt->num_rows > 0 ) {
-            
-            $stmt = $conn->prepare("INSERT INTO quote_item (ref_no, description, code, quantity) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $ref_no, $description, $code, $quantity);
-            if($stmt->execute()){
-
-              echo json_encode( array("status" => 1, "message" => "Success" ) );
-              exit;
-
-              }else{
-            echo json_encode( array("status" => 0, "message" => "Ooops! SOmething went wrong" ) );
-            exit;
-        }
-      }else{
-        echo json_encode( array("status" => 0, "message" => "Invalid reference number" ) );
-        exit;
-    }
-    }
-}
 
 ?>

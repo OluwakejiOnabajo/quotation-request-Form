@@ -16,7 +16,7 @@
   Requestor: <input type="text" id="requestor" placeholder="Enter your name" required><br>
 Comapany: <input type="text" id="company" placeholder="Enter the company's name" required>   
 Location: <input type="text" id="location" placeholder="Enter your location" required><br>
-Requestor Date: <input type="date" id="request_date" placeholder="Select date" required>   
+Requested Date: <input type="date" value="<?php echo Date("Y-m-d") ?>" id="request_date" placeholder="Select date" required>   
 Required date: <input type="date" id="required_date" placeholder="Select date" required><br>
 Availability status: <input type="radio" id="item_status" name="item_status" value="yes" required> Yes | <input type="radio" id="item_status" name="item_status" value="no" required> No <br>
 Replacement model availability: <input type="radio" id="model_availability" name="model_availability" value="yes" required> Yes | <input type="radio" id="model_availability" name="model_availability" value="no" required> No <br>
