@@ -42,7 +42,6 @@ if ($request == 1) {
           $stmt->bind_param("ssss", $ref_no, $description[$key], $code[$key], $quantity[$key]);
           $stmt->execute(); 
           echo json_encode( array("status" => 1, "message" => "Success", "ref_no" => $ref_no ) );
-          exit;
           }
           
           // $stmt = $conn->prepare("INSERT INTO quote_items (ref_no, description, code, quantity) VALUES (?, ?, ?, ?)");

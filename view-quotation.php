@@ -143,7 +143,7 @@ echo "<tr>
   </table>
 <br/>
 
-<a href="download-quote/<?php echo $ref_no; ?>">Download quotation</a><br>
+<a href="download-quotation/<?php echo $ref_no; ?>">Download quotation</a><br>
 
 
   <script src="js/jquery-3.6.3.min.js"></script>

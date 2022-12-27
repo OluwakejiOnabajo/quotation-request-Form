@@ -1,6 +1,6 @@
 <?php
 
- $host = "localhost"; // Host name 
+$host = "localhost"; // Host name 
 $user = "root"; // User 
 $password = ""; // Password 
 $dbname = "quotation"; // Database name

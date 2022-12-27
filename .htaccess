@@ -8,6 +8,6 @@ RewriteRule ^([^\.]+)$ $1.php [NC,L]
 #Redirect /home to index.php
 RewriteRule ^home index.php [NC,L]
 
-RewriteRule ^quote/([0-9a-zA-Z_-]+) view-quote.php?ref=$1 [L]
-RewriteRule ^download-quote/([0-9a-zA-Z_-]+) download-quote.php?ref=$1 [L]
+RewriteRule ^view-quotation/([0-9a-zA-Z_-]+) view-quotation.php?ref=$1 [L]
+RewriteRule ^download-quotation/([0-9a-zA-Z_-]+) download-quotation.php?ref=$1 [L]
 
