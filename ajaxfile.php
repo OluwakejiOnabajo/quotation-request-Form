@@ -1,13 +1,6 @@
 <?php
 
-include_once 'connection/config.php';
-
-function test_input($text){ 
- $text = trim($text);
-  $text = strip_tags($text);
- $text = stripslashes($text);
-  return $text;
-}
+include_once 'functions.php';
 
 $request = 0;
 
@@ -53,6 +46,67 @@ if ($request == 1) {
 
 }
 
+//Login
+if ($request == 2) {
+
+  $email = test_input($_POST["email"]);
+  $password = test_input($_POST["password"]);
+
+
+ if ($email != "" && $password != "") {
+
+   $stmt = $conn->prepare("SELECT id, password FROM users WHERE email = ?");
+   $stmt->bind_param("s", $email);
+   $stmt->execute();
+   $stmt->store_result();
+   $stmt->bind_result($user_id, $hash);
+  if($stmt->num_rows > 0 ) {
+   $stmt->fetch();
+
+     if (password_verify($password, $hash)) {       
+        $_SESSION["user_id"] = $user_id;
+
+        echo json_encode( array("status" => 1, "message" => 'Logged in successfully') );
+        exit();
+      }else{
+   echo json_encode( array("status" => 0, "message" => 'Invalid login credentials!') );
+   exit;
+ } 
+ }else{
+  echo json_encode( array("status" => 0, "message" => 'User not found!') );
+  exit;
+} 
+}else{
+   echo json_encode( array("status" => 0, "message" => 'Please fill all fields.') );
+   exit;
+ }
+
+}
+
+
+//Signup
+if ($request == 3) {
+
+  $name = test_input($_POST["name"]);
+  $email = test_input($_POST["email"]);
+  $password = test_input($_POST["password"]);
+
+
+ if ($name != "" && $email != "" && $password != "") {
+
+  $password = password_hash($password, PASSWORD_DEFAULT);
+
+  $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+  $stmt->bind_param("sss", $name, $email, $password);
+  if($stmt->execute()){
+   echo json_encode( array("status" => 1, "message" => 'Signed up successfully!') );
+   exit;
+ } 
+ }else{
+   echo json_encode( array("status" => 0, "message" => 'Please fill all fields.') );
+   exit;
+ }
+}
 
 
 

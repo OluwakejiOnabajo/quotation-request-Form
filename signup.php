@@ -13,49 +13,47 @@
     <div class="wrapper">
     <div class="main">
       
-    <div class="sidebar">
-        <h2>LOGO</h2>
-        <ul>
-          <li>
-            <a href="#"><i class="fas fa-home"></i>Home</a>
-          </li>
-          <li>
-            <a href="#modalbox" id="login"><i class="fas fa-user"></i>Login</a>
-          </li>
-        </ul>
-      </div>
+    <?php  include_once 'components/sidebar.php'; ?>
+
     <div class="content">
 
     <div class="card login-box">
   <div class="card-body">
 
-      <h1 class="header">Welcome Back</h1>
+      <h1 class="header">Welcome!</h1>
           <p class="text-center">
-            Glad to have you back. Enter your email <br />and password to
+            Glad to have you here. Enter your details to
             continue
           </p>
 
       <form class="row g-3 needs-validation" novalidate>
-  <div class="mb-3">
-    <label for="validationCustomUsername" class="form-label">Username</label>
+  <div class="mb-2">
+    <label for="name" class="form-label">Full name</label>
+      <input type="text" class="form-control" id="name" required>
+      <div class="invalid-feedback">
+        Please enter full name
+      </div>
+  </div>
+  <div class="mb-2">
+    <label for="email" class="form-label">Email</label>
     <div class="input-group has-validation">
       <span class="input-group-text" id="inputGroupPrepend">@</span>
-      <input type="email" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+      <input type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend" required>
       <div class="invalid-feedback">
-        Please choose a username.
+        Please enter email address
       </div>
     </div>
   </div>
-  <div class="mb-3">
-    <label for="validationCustom05" class="form-label">Password</label>
-    <input type="password" class="form-control" id="validationCustom05" required>
+  <div class="mb-2">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" required>
     <div class="invalid-feedback">
       Please provide your password.
     </div>
   </div>
   <div class="col-12">
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+      <input class="form-check-input" type="checkbox" value="yes" id="invalidCheck" required>
       <label class="form-check-label" for="invalidCheck">
         Agree to terms and conditions
       </label>
@@ -65,9 +63,8 @@
     </div>
   </div>
   <div class="col-12 text-center">
-    <button class="btn btn-primary mb-3" type="submit">Login</button>
-    <p><a href="#">Forgot Password?</a></p>
-    <p> New Member? <a href="#">Create Account</a></p>
+    <button class="btn btn-primary mb-3" id="signup" type="submit">Signup</button>
+    <p> Already have an account? <a href="login">Login</a></p>
   </div>
   
 </form>
@@ -77,8 +74,8 @@
     </div>
     </div>
 
+    <script src="js/jquery-3.6.3.min.js"></script>
     <script src="js/script.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
