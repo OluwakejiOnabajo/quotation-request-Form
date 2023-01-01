@@ -1,93 +1,168 @@
+<?php  
+include_once 'functions.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Price Quote Request</title>
-  <!-- <link rel="stylesheet" href="css/style.css" /> -->
-</head>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <title>Price Quote Request</title>
+  </head>
+  <body>
+  <div class="wrapper">
+    <div class="main">
 
-<body>
+    <?php  include_once 'components/sidebar.php'; ?>
+
+    <div class="content">
+
+<div class="container">
   <h1>Price Quote Request</h1>
 
-  <form id="quote-form">
-  Requestor: <input type="text" id="requestor" placeholder="Enter your name" required><br>
-Comapany: <input type="text" id="company" placeholder="Enter the company's name" required>   
-Location: <input type="text" id="location" placeholder="Enter your location" required><br>
-Requested Date: <input type="date" value="<?php echo Date("Y-m-d") ?>" id="request_date" placeholder="Select date" required>   
-Required date: <input type="date" id="required_date" placeholder="Select date" required><br>
-Availability status: <input type="radio" id="item_status" name="item_status" value="yes" required> Yes | <input type="radio" id="item_status" name="item_status" value="no" required> No <br>
-Replacement model availability: <input type="radio" id="model_availability" name="model_availability" value="yes" required> Yes | <input type="radio" id="model_availability" name="model_availability" value="no" required> No <br>
- <button type="submit" id="add-quote">Proceed</button> <br/>
+  <form id="quote-form" class="row g-3 needs-validation" novalidate>
+  <div class="col-12">
+   Requestor: <input type="text" id="requestor" class="form-control" placeholder="Enter your name" required>
+    <div class="invalid-feedback">
+      Requestor's name is required!
+    </div>
+  </div>
+  
+  <div class="col-md-6">
+Comapany: <input type="text" id="company" class="form-control" placeholder="Enter the company's name" required>  
+<div class="invalid-feedback">
+     Company's name is required!
+    </div>
+</div>
+
+<div class="col-md-6">
+Location: <input type="text" id="location" class="form-control" placeholder="Enter your location" required>
+<div class="invalid-feedback">
+      Location is required
+    </div>
+</div>
+
+<div class="col-md-6">
+Requested Date: <input type="date" value="<?php echo Date("Y-m-d") ?>" id="request_date" class="form-control" placeholder="Select date" required>   
+<div class="invalid-feedback">     
+Date requested is required!
+    </div>
+</div>
+
+<div class="col-md-6">
+Required date: <input type="date" id="required_date" class="form-control" placeholder="Select date" required>
+<div class="invalid-feedback">     
+Date required is required!
+    </div>
+</div>
+
+<div class="col-md-6">
+Availability status: 
+<div class="form-check">
+  <input class="form-check-input" type="radio" id="flexRadioDefault1" name="item_status">
+  <label class="form-check-label" for="flexRadioDefault1">
+  Yes
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" id="flexRadioDefault2" name="item_status" required>
+  <label class="form-check-label" for="flexRadioDefault2">
+   No
+  </label>
+  <div class="invalid-feedback">
+      Please select availability status!
+    </div>
+</div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+Replacement model availability:
+<div class="form-check">
+  <input class="form-check-input" type="radio" id="flexRadioDefault11" name="model_availability">
+  <label class="form-check-label" for="flexRadioDefault11">
+  Yes
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" id="flexRadioDefault21" name="model_availability" required>
+  <label class="form-check-label" for="flexRadioDefault21">
+   No
+  </label>
+  <div class="invalid-feedback">
+      Please select replacement model availability status!
+    </div>
+</div>
+</div>
+
+<div class="col-12">
+    <button class="btn btn-primary mb-3" type="submit" id="add-quote">Proceed</button>
+</div>
   </form>
   <br/>
   
 <div id="item-box" style="display: none;">
-  <form id="item-form">
-    <input type="text" id="description" placeholder="Enter item description" required>
-    <input type="text" id="code" placeholder="Enter item code number" required>
-    <input type="number" id="quantity" placeholder="Enter quantity" required>
-    <button type="submit" id="add-item">Add item</button>
+  <form id="item-form" class="row g-3 needs-validation" novalidate>
+    
+<div class="col-md-3">
+    <input type="text" id="description" class="form-control" placeholder="Enter item description" required><div class="invalid-feedback">
+      Looks good!
+    </div>
+</div>
+
+<div class="col-md-3">
+    <input type="text" id="code" class="form-control" placeholder="Enter item code number" required>
+    <div class="invalid-feedback">
+      Looks good!
+    </div>
+</div>
+
+<div class="col-md-3">
+    <input type="number" id="quantity" class="form-control" placeholder="Enter quantity" required>
+    <div class="invalid-feedback">
+      Looks good!
+    </div>
+</div>
+
+    <div class="col-12">
+    <button class="btn btn-primary mb-3" type="submit" id="add-item">Add item</button>
+    </div>
   </form>
   <br/>
 
-  <table class="tableTwo" id="quoteTable">
+  <div class="table-responsive">
+<table class="table table-bordered" id="quoteTable">
+  <thead>
     <thead>
       <tr>
-        <th>S/N</th>
-        <th class="itemDes">ITEM DESCRIPTION</th>
+        <th></th>
+        <th>ITEM DESCRIPTION</th>
         <th>ITEM CODE</th>
         <th>QUANTITY</th>
-        <th></th>
       </tr>
     </thead>
     <tbody id="tableBody">
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="5"><button type="button" id="delete-row" >Delete
+        <td colspan="4"><button class="btn btn-primary" type="button" id="delete-row" >Delete
             Row</button></td>
         <tr/>
     </tfoot>
   </table>
-  
-  <table class="tableThree">
-    <tr class="quoteEnd">
-      <th>Subtotal</th>
+  </div>
 
-      <td></td>
-    </tr>
+<div class="col-12">
+    <button class="btn btn-primary mb-3" id="submit-quote" type="button" disabled>Submit quotation</button>
+</div>
 
-    <tr class="quoteEnd">
-      <th>Tax Rate</th>
+</div>
 
-      <td></td>
-    </tr>
-
-    <tr class="quoteEnd">
-      <th>Sale Tax</th>
-
-      <td></td>
-    </tr>
-
-    <tr class="quoteEnd">
-      <th>Other</th>
-
-      <td></td>
-    </tr>
-
-    <tr class="quoteEnd">
-      <th>Total</th>
-
-      <td></td>
-    </tr>
-  </table>
-<br/>
-
-<button id="submit-quote" type="button" disabled>Submit quotation</button>
-
+</div>
+    </div>
 </div>
 
 
@@ -95,6 +170,8 @@ Replacement model availability: <input type="radio" id="model_availability" name
 
   <script src="js/jquery-3.6.3.min.js"></script>
 <script src="js/script.js"></script>
+<script src="js/quotation.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
 </body>
 

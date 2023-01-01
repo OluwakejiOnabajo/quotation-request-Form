@@ -1,15 +1,12 @@
 <?php  
-include_once 'connection/config.php';
 
-function test_input($text){ 
-  $text = trim($text);
-   $text = strip_tags($text);
-  $text = stripslashes($text);
-   return $text;
- }
+include_once 'functions.php';
 
  if (isset($_GET['ref'])) {
   $ref_no = test_input($_GET['ref']);
+ }else{
+  echo "Invalid reference ID";
+  exit;
  }
 
  $stmt = $conn->prepare("SELECT requestor, company, location, request_date, required_date, item_status, model_availability FROM quotes WHERE ref_no = ?");
@@ -37,13 +34,23 @@ function test_input($text){
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Price Quote Request</title>
   <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
 
 <body>
-  <h1>Price Quote Request</h1>
+<div class="wrapper">
+    <div class="main">
+
+    <?php  include_once 'components/sidebar.php'; ?>
+
+    <div class="content">
+
+<div class="container">
+   <h4 class="text-center">Price Quote Request</h4>
 
 
-  <table class="tableOne">
+   <div class="table-responsive">
+<table class="table table-bordered">
     <tr>
       <th>Requestor</th>
       <td colspan="3"><?php echo $requestor; ?></td>
@@ -65,18 +72,19 @@ function test_input($text){
 
     <tr>
       <th>Other requirements:</th>
-      <td colspan="2">item availability status
-        <hr>replacement model availability</td>
+      <td colspan="2">Item availability status
+        <hr>Replacement model availability</td>
 
       <td><?php echo $item_status; ?>
         <hr><?php echo $model_availability; ?></td>
     </tr>
 
   </table>
-  <br />
+   </div>
   
 
-  <table class="tableTwo" id="quoteTable">
+   <div class="table-responsive">
+<table class="table table-bordered" id="quoteTable">
     <thead>
       <tr>
         <th>S/N</th>
@@ -113,46 +121,17 @@ echo "<tr>
 
     </tbody>
   </table>
-  <br/>
+   </div>
 
-  <table class="tableThree">
-    <tr class="quoteEnd">
-      <th>Subtotal</th>
+ 
 
-      <td></td>
-    </tr>
-
-    <tr class="quoteEnd">
-      <th>Tax Rate</th>
-
-      <td></td>
-    </tr>
-
-    <tr class="quoteEnd">
-      <th>Sale Tax</th>
-
-      <td></td>
-    </tr>
-
-    <tr class="quoteEnd">
-      <th>Other</th>
-
-      <td></td>
-    </tr>
-
-    <tr class="quoteEnd">
-      <th>Total</th>
-      <td><?php echo $total; ?></td>
-    </tr>
-  </table>
-<br/>
-
-<a href="download-quotation/<?php echo $ref_no; ?>">Download quotation</a><br/>
+<a href="download-quotation/<?php echo $ref_no; ?>" class="btn btn-primary mb-3">Download quotation</a>
 <br/>
 
 
   <script src="js/jquery-3.6.3.min.js"></script>
 <script src="js/script.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
 </body>
 

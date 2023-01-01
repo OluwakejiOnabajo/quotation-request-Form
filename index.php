@@ -1,5 +1,14 @@
 <?php  
 include_once 'functions.php';
+
+
+if (isset($_SESSION['user_id'])) {   
+  $user_id = $_SESSION['user_id'];
+  }else{
+    header('location: ./login');
+    exit();
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,6 +93,5 @@ while($stmt1->fetch()){
 
     <script src="js/script.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

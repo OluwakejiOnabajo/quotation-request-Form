@@ -13,17 +13,8 @@
     <div class="wrapper">
     <div class="main">
       
-    <div class="sidebar">
-        <h2>LOGO</h2>
-        <ul>
-          <li>
-            <a href="#"><i class="fas fa-home"></i>Home</a>
-          </li>
-          <li>
-            <a href="#modalbox" id="login"><i class="fas fa-user"></i>Login</a>
-          </li>
-        </ul>
-      </div>
+    <?php  include_once 'components/sidebar.php'; ?>
+    
     <div class="content">
 
     <div class="card login-box">

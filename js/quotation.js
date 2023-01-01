@@ -46,13 +46,13 @@ setTimeout(function () {
 
 //Add quote items
 var addItem = document.getElementById("add-item");
+var quoteTable = document.getElementById('quoteTable').getElementsByTagName('tbody')[0];
 addItem.addEventListener("click", submitItem);
 descArr = [];
 codeArr = [];
 quantityArr = [];
 
 function submitItem(e) {
-  var quoteTable = document.getElementById('quoteTable').getElementsByTagName('tbody')[0];
 
   var description = document.getElementById("description").value;
   var code = document.getElementById("code").value;
@@ -168,6 +168,7 @@ var delItem = document.getElementById("delete-row");
 delItem.addEventListener("click", deleteItem);
 
 function deleteItem() {
+  
   var checkboxes = document.getElementsByName('record');
   var itemArray = [];
   for (var i = 0; i < checkboxes.length; i++) {
@@ -179,7 +180,7 @@ function deleteItem() {
   itemArray.forEach(myFunction);
 
   function myFunction(item){
-    quoteTable.deleteRow(item+1);
+    quoteTable.deleteRow(item);
   }
 
   var checkboxes = document.getElementsByName('record');
