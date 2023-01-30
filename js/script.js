@@ -43,7 +43,7 @@ e.preventDefault();
         dataType: 'json',
         success: function (response) {
           if (response.status == 1) {
-            window.location = "./";
+            window.location = "./new-quotation";
             alert(response.message);
           } else {
             alert(response.message);

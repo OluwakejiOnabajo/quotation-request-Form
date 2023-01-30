@@ -22,6 +22,14 @@ if ($request == 1) {
    $description = explode(",",$_POST['description']);
    $code = explode(",",$_POST['code']);
    $quantity = explode(",",$_POST['quantity']);  
+   $user_id = $_SESSION["user_id"];
+
+   $stmt = $conn->prepare("SELECT name, email FROM users WHERE id = ?");
+   $stmt->bind_param("i", $user_id);
+   $stmt->execute();
+   $stmt->store_result();
+   $stmt->bind_result($name, $email);
+    $stmt->fetch();
    
    if($requestor !== '' && $company !== '' && $location !== '' && $request_date !== '' && $required_date !== '' && $item_status !== '' && $model_availability !== ''
    && $ref_no !== '' && $description !== '' && $code !== '' && $quantity !== ''){
@@ -35,6 +43,24 @@ if ($request == 1) {
           $stmt->bind_param("ssss", $ref_no, $description[$key], $code[$key], $quantity[$key]);
           $stmt->execute(); 
           }
+
+           //Send Email 1
+         $to = $email; 
+         $subject= "Password Reset Successfully";
+         $message = "<p><b>Hello admin,</b></p><p>".$name." submitted a quotation.<br/>View submitted quotation <a href='/quotations/".$ref_no."'>here</a></p><p>Cheers!</p><hr><p>All the best,<br>Support Team</p>";
+          $header = "From:noreply@quotation.org.ng \r\n";
+          $header .= "MIME-Version: 1.0\r\n";
+          $header .= "Content-type: text/html\r\n";                             
+         $result = @mail($to, $subject, $message, $header);
+
+         //Send Email 2
+         $to2 = $email; 
+         $subject2= "Password Reset Successfully";
+         $message2 = "<p><b>Hello ".$name.",</b></p><p>Your quotation was well received. You will be contacted in due time<br/>View submitted quotation <a href='/quotations/".$ref_no."'>here</a>.</p><p>Cheers!</p><hr><p>All the best,<br>Support Team</p>";
+          $header2 = "From:noreply@quotation.org.ng \r\n";
+          $header2 .= "MIME-Version: 1.0\r\n";
+          $header2 .= "Content-type: text/html\r\n";                             
+         $result2 = @mail($to2, $subject2, $message2, $header2);
           
           echo json_encode( array("status" => 1, "message" => "Success", "ref_no" => $ref_no ) );
           exit;
@@ -94,6 +120,12 @@ if ($request == 3) {
 
  if ($name != "" && $email != "" && $password != "") {
 
+  $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+  $stmt->bind_param("s", $email);
+  $stmt->execute();
+  $stmt->store_result();
+ if($stmt->num_rows == 0 ) {
+
   $password = password_hash($password, PASSWORD_DEFAULT);
 
   $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
@@ -103,9 +135,13 @@ if ($request == 3) {
    exit;
  } 
  }else{
-   echo json_encode( array("status" => 0, "message" => 'Please fill all fields.') );
+   echo json_encode( array("status" => 0, "message" => 'User already exist. Please login') );
    exit;
  }
+}else{
+  echo json_encode( array("status" => 0, "message" => 'Please fill all fields.') );
+  exit;
+}
 }
 
 
